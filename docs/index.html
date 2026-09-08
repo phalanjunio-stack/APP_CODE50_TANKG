@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SR Lakes Tone — Instalar</title>
+<style>
+  :root {
+    --bg: #05070C;
+    --surface: #0A0F17;
+    --surface-raised: #111925;
+    --surface-sunken: #070B11;
+    --outline: #1C2836;
+    --outline-strong: #2A3B4F;
+    --electric: #2F9BFF;
+    --amber: #FFB020;
+    --green: #35D07F;
+    --red: #FF4D5E;
+    --text: #E9F0F8;
+    --text-2: #8DA2B9;
+    --text-3: #56697F;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px 64px;
+  }
+  main { width: 100%; max-width: 460px; }
+
+  .brand { text-align: center; margin-bottom: 28px; }
+  .brand .name {
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: 0.3px;
+  }
+  .brand .tagline {
+    color: var(--text-3);
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-top: 4px;
+  }
+
+  .card {
+    background: linear-gradient(180deg, #121B27, #0B121B);
+    border: 1px solid var(--outline);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 16px;
+  }
+  .card.accent-electric { border-color: rgba(47,155,255,0.45); }
+  .card.accent-amber { border-color: rgba(255,176,32,0.4); }
+
+  h1 {
+    font-size: 19px;
+    margin: 0 0 6px;
+  }
+  p { color: var(--text-2); font-size: 13.5px; line-height: 1.55; margin: 0 0 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  .btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.4px;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: transform 0.08s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary {
+    background: rgba(255,176,32,0.14);
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+  .btn-secondary {
+    background: var(--surface);
+    border-color: var(--outline-strong);
+    color: var(--text-2);
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .qr-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 0 6px;
+  }
+  #qrcode {
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    line-height: 0;
+  }
+  .qr-caption { color: var(--text-3); font-size: 11px; text-align: center; }
+
+  ol {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--text-2);
+    font-size: 13px;
+    line-height: 1.9;
+  }
+  ol li b { color: var(--text); }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--green);
+    background: rgba(53,208,127,0.12);
+    border: 1px solid rgba(53,208,127,0.4);
+    border-radius: 8px;
+    padding: 4px 10px;
+    margin-bottom: 14px;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  footer {
+    text-align: center;
+    color: var(--text-3);
+    font-size: 11px;
+    margin-top: 28px;
+    line-height: 1.7;
+  }
+  footer a { color: var(--electric); text-decoration: none; }
+
+  .section-label {
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 1.6px;
+    color: var(--text-3);
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="brand">
+    <div class="name">SR Lakes Tone</div>
+    <div class="tagline">MUSIC LIVES LOUDER</div>
+  </div>
+
+  <div class="card accent-amber">
+    <span class="badge"><span class="dot"></span>Versão mais recente</span>
+    <h1>Instalar no celular</h1>
+    <p>
+      Um único passo, direto do navegador do celular — sem computador,
+      sem cabo. Depois desta primeira vez, o próprio app avisa quando
+      sair uma versão nova e se atualiza sozinho.
+    </p>
+    <a class="btn btn-primary" href="https://github.com/phalanjunio-stack/APP_CODE50_TANKG/releases/latest/download/app-release.apk">
+      ⬇ BAIXAR SR LAKES TONE
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Ou aponte a câmera</div>
+    <div class="qr-wrap">
+      <div id="qrcode"></div>
+      <div class="qr-caption">Escaneie com a câmera do celular</div>
+    </div>
+  </div>
+
+  <div class="card accent-electric">
+    <div class="section-label">Depois de baixar</div>
+    <ol>
+      <li>Abra o arquivo <b>app-release.apk</b> na tela de notificações ou em Downloads.</li>
+      <li>Se o Android avisar <b>"Instalar apps desconhecidos"</b>, toque em
+        <b>Configurações</b> e permita para o Chrome (ou o app que baixou o
+        arquivo). É só na primeira vez.</li>
+      <li>Volte e toque em <b>Instalar</b>.</li>
+    </ol>
+  </div>
+
+  <a class="btn btn-secondary" href="https://github.com/phalanjunio-stack/APP_CODE50_TANKG">
+    Ver o código-fonte no GitHub →
+  </a>
+
+  <footer>
+    SR Lakes Tone é um projeto de código aberto da banda SR Lakes.<br />
+    Dúvidas ou problemas: <a href="https://github.com/phalanjunio-stack/APP_CODE50_TANKG/issues">abra uma issue no repositório</a>.
+  </footer>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script>
+  var qr = qrcode(0, "M");
+  qr.addData("https://github.com/phalanjunio-stack/APP_CODE50_TANKG/releases/latest/download/app-release.apk");
+  qr.make();
+  document.getElementById("qrcode").innerHTML = qr.createSvgTag({ cellSize: 5, margin: 2 });
+</script>
+</body>
+</html>
