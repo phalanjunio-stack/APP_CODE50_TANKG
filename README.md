@@ -10,6 +10,11 @@ pensado para o celular preso ao pedestal durante ensaio, passagem de som e show.
 Estado atual: **Fase 1 (MVP)** — funcional de ponta a ponta com aparelhos **simulados**.
 Compila, instala e roda. O analisador de áudio é real e funciona pelo microfone.
 
+Repositório: **https://github.com/phalanjunio-stack/APP_CODE50_TANKG** (público —
+é o que permite o app se atualizar sozinho, veja a seção 12). Instale a versão mais
+recente direto do celular, sem cabo:
+**https://github.com/phalanjunio-stack/APP_CODE50_TANKG/releases/latest**
+
 ---
 
 ## Índice
@@ -25,6 +30,7 @@ Compila, instala e roda. O analisador de áudio é real e funciona pelo microfon
 9. [Integração com o SR Lakes Studio](#9-integração-com-o-sr-lakes-studio)
 10. [Limitações honestas](#10-limitações-honestas)
 11. [O que vem na Fase 2](#11-o-que-vem-na-fase-2)
+12. [Atualização online e como publicar uma release](#12-atualização-online-e-como-publicar-uma-release)
 
 ---
 
@@ -582,3 +588,95 @@ Depois disso: USB DIRECT audio, rotina de calibração com 3 segundos de silênc
 exportação do histórico, e o `ToneAdvisor` com IA — que já é uma interface
 (`:core:analysis/ToneAdvisor.kt`) com uma implementação offline por regras. Trocar
 é uma linha, e a análise continua funcionando sem internet de qualquer jeito.
+
+---
+
+## 12. Atualização online e como publicar uma release
+
+O app não está em nenhuma loja. Sem isso, atualizar significa gerar um APK,
+mandar por WhatsApp e cada músico instalar na mão — o motivo deste módulo existir.
+
+### Como funciona, do lado de quem usa
+
+Em **Configurações → Atualizações**: o app confere sozinho a cada 6 horas
+(desligável), ou na hora, tocando no ícone de atualizar. Quando há uma versão
+nova:
+
+1. Aparece o número da versão e as notas de lançamento (o texto da release).
+2. **BAIXAR E INSTALAR** baixa o APK direto do GitHub Release, com barra de
+   progresso.
+3. O Android abre a tela de instalação — **essa confirmação é sempre do
+   sistema**, o app nunca instala nada sozinho.
+4. Na primeira vez, o Android pode pedir para autorizar "Instalar apps
+   desconhecidos" para o SR Lakes Tone. O app detecta isso e mostra o botão
+   certo em vez de falhar calado.
+
+**AGORA NÃO** dispensa aquela versão especificamente — ela não volta a
+incomodar sozinha, mas continua disponível se você tocar em verificar de novo.
+
+### Por que o repositório precisa ser público
+
+O atualizador chama `GET /repos/{owner}/{repo}/releases/latest` **sem
+autenticação nenhuma**. É proposital: o app roda no celular de cada músico, e
+não existe forma segura de embutir um token pessoal do GitHub dentro de
+um APK — qualquer um consegue descompilar e extrair. Um repositório privado
+exigiria isso, então ele precisa ser público para a atualização funcionar sem
+gambiarra. Não há nada sensível no código (conferido antes da primeira
+publicação: sem chave, sem senha, sem dado de ninguém).
+
+### Onde fica o código
+
+```
+:update   VersionComparator      compara "1.2.0" com "v1.1.0-mvp" etc.
+          GithubReleaseChecker   le GET /releases/latest, acha o .apk anexado
+          ApkDownloader          baixa com progresso, escreve em .part e so
+                                 renomeia no final (nunca sobra apk pela metade)
+          UpdateInstaller        FileProvider + Intent de instalacao do Android
+          UpdateSettingsStore    3 preferencias, em SharedPreferences proprio
+                                 (nao entra em AppSettings - isto nao e um
+                                 conceito de guitarra, e um utilitario)
+:app      UpdateCoordinator      liga tudo: quando verificar, o que fazer com
+          (di/../update/)        o resultado, e guarda o estado para a tela
+```
+
+`:update` não depende de nenhum outro módulo do projeto — é o único pensado
+para, um dia, virar uma biblioteca reaproveitável fora deste app.
+
+### Assinatura de release — o detalhe que faz a atualização funcionar de verdade
+
+O Android só deixa instalar um APK **por cima** de um já instalado se os dois
+tiverem a **mesma assinatura**. Sem uma chave de release estável, cada
+"atualização" seria na prática desinstalar + reinstalar — perdendo presets,
+músicas e histórico salvos no aparelho.
+
+Por isso existe `keystore/srlakes-release.jks` (fora do git, veja
+`.gitignore`) e `keystore.properties` na raiz do projeto, lido por
+`app/build.gradle.kts`:
+
+```properties
+storeFile=keystore/srlakes-release.jks
+storePassword=...
+keyAlias=srlakes-tone
+keyPassword=...
+```
+
+Sem esse arquivo, `assembleRelease` ainda compila — só que sem assinatura de
+release, incapaz de atualizar um app já instalado.
+
+> **Faça backup do `.jks` e do `keystore.properties` em um lugar que não seja
+> só este computador.** Perder os dois significa perder, para sempre, a
+> capacidade de atualizar qualquer celular que já tenha uma versão assinada
+> com essa chave instalada.
+
+### Como publicar uma nova versão
+
+1. Suba `versionCode` e `versionName` em `app/build.gradle.kts`.
+2. `./gradlew :app:assembleRelease` — o APK sai assinado em
+   `app/build/outputs/apk/release/app-release.apk`.
+3. `git push` das mudanças.
+4. Crie uma release no GitHub com a tag `vX.Y.Z` (o `v` é removido
+   automaticamente na comparação de versão) e anexe esse APK.
+
+O app em campo confere a próxima vez que abrir (ou na hora, se alguém tocar em
+verificar) e encontra a versão nova sozinho — nenhum celular precisa saber que
+existe uma versão nova antes disso.
