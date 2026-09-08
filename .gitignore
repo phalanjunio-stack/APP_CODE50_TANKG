@@ -1,0 +1,26 @@
+# Gradle / Android
+.gradle/
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+local.properties
+
+# Assinatura — NUNCA versionar. Perder isto é perder a capacidade
+# de atualizar os aparelhos que já têm o app instalado.
+*.jks
+*.keystore
+keystore.properties
+
+# IDE
+.idea/
+*.iml
+*.iws
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Saídas
+*.apk
+*.aab

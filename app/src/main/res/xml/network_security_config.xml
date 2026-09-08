@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  O SR Lakes Studio roda um servidor HTTP simples no notebook da banda,
+  dentro da rede local do ensaio ou da casa de show. Não há HTTPS ali, e
+  nem faria sentido: é uma rede fechada, sem nome de domínio nem
+  certificado.
+
+  Este é o único tráfego de rede do aplicativo. Ele não fala com nenhum
+  servidor na internet: análise, presets e histórico são todos locais.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

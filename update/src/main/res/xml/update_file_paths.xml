@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Expoe apenas a pasta cache/updates, onde o ApkDownloader salva os
+  arquivos baixados. Nada mais do app fica visivel por aqui.
+-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path name="apk-updates" path="updates/" />
+</paths>
