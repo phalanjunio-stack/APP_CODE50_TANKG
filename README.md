@@ -11,9 +11,10 @@ Estado atual: **Fase 1 (MVP)** — funcional de ponta a ponta com aparelhos **si
 Compila, instala e roda. O analisador de áudio é real e funciona pelo microfone.
 
 Repositório: **https://github.com/phalanjunio-stack/APP_CODE50_TANKG** (público —
-é o que permite o app se atualizar sozinho, veja a seção 12). Instale a versão mais
-recente direto do celular, sem cabo:
-**https://github.com/phalanjunio-stack/APP_CODE50_TANKG/releases/latest**
+é o que permite o app se atualizar sozinho, veja a seção 12).
+
+**Para instalar no celular da banda, sem computador**, use a página de instalação
+(botão de download + QR code): **https://phalanjunio-stack.github.io/APP_CODE50_TANKG/**
 
 ---
 
@@ -90,6 +91,24 @@ No Android Studio: selecione a configuração **app** e clique em Run.
 
 ## 3. Instalar no celular
 
+### Para a banda: sem computador nem cabo
+
+O jeito pensado para os músicos é a página de instalação, publicada pelo
+próprio repositório (GitHub Pages):
+
+**https://phalanjunio-stack.github.io/APP_CODE50_TANKG/**
+
+Abre no navegador do celular, tem um botão de download grande e um QR code
+que aponta para o mesmo lugar — a versão mais recente publicada, sempre. Essa
+é a **única vez** que precisa de um passo manual: depois de instalado uma
+vez, o próprio app confere e se atualiza sozinho (seção 12).
+
+O link de download é estável entre versões
+(`releases/latest/download/app-release.apk`), então essa página nunca
+precisa ser republicada quando sai uma versão nova.
+
+### Para desenvolvimento: com Android Studio ou adb
+
 Com o celular no modo desenvolvedor e depuração USB ligada:
 
 ```bash
@@ -101,6 +120,10 @@ Ou manualmente:
 ```bash
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
+
+O build de debug (`applicationId` termina em `.debug`) convive no aparelho
+com uma instalação da versão de release baixada pela página acima — são
+pacotes diferentes, um não substitui o outro.
 
 Na primeira abertura o app cria os **dados de demonstração**: sete presets
 (`SR Clean Valve`, `SR Pop Rock Base`, `SR Pop Rock Solo`, `SR Crunch`, ...),
